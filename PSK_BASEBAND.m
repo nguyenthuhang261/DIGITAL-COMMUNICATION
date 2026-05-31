@@ -14,11 +14,10 @@ sps = 50;
 st = repelem(s_sym, sps) * pulse_amp;
 
 SNRdB = 10;
-No = 10^(SNRdB/10);
-sps = 50;
-fs = sps / Tsym;
-noise_var = No*fs;
-noise = sqrt(noise_var/2) * (randn(1, length(st)) + 1i*randn(1, length(st)));
+SNR_linear = 10^(SNRdB/10);
+signal_power = mean(abs(st).^2);
+noise_power = signal_power/SNR_linear;
+noise = sqrt(noise_power/2) * (randn(1, length(st)) + 1i*randn(1, length(st)));
 
 rt = st + noise;
 t = (0:length(st)-1)/fs;
