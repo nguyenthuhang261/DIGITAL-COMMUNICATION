@@ -11,6 +11,7 @@ pulse_amp = sqrt(2*Es/Tsym);
 phi0 = 0;
 s_sym = dk .* exp(1i*phi0);
 sps = 50;
+fs = sps/Tsym;
 st = repelem(s_sym, sps) * pulse_amp;
 
 SNRdB = 10;
