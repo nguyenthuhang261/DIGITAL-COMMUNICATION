@@ -16,5 +16,6 @@ function res = mid_point(f, xa, xb, N)
   res = 0;
   while k <= N
       res = res + f(x(k) + h/2) * h;
+      k = k + 1;
   end
 end
