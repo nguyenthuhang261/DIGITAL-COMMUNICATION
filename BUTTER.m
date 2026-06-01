@@ -7,7 +7,7 @@ x = sin(4*pi*t) + 0.5*sin(40*pi*t);
 n = 4;
 B = 8;
 
-y = butterwflt(x, n, B, Ts);
+y = butterw(x, n, B, Ts);
 [f, Px] = spectrocal(t, x);
 [~, Py] = spectrocal(t, y);
 
@@ -24,17 +24,19 @@ title('Mien thoi gian');
 xlim([0 1.5]);
 grid on;
 
-function y = butterwflt(x, n, B, Ts)
+function y = butterw(x, n, B, Ts)
     Ns = length(x);
-    f = [0:Ns/2-1, -Ns/2:-1] / (Ns*Ts);
-    Xf = fft(x);
-    Hf = 1 ./ (1 + (f./B).^(2*n));
-    y = real(ifft(Xf .* Hf));
+    f = (-Ns/2:Ns/2-1)/(Ns*Ts);
+    X_shifted = fftshift(fft(x));
+    H_f = 1./(1+(f./B).^(2*n));
+    Y_shifted = ifftshift(X_shifted.*H_f);
+    y = real(ifft(Y_shifted));
 end
 
 function [f, Pf] = spectrocal(t, x)
     Ns = length(x);
     Ts = t(2) - t(1);
     f = (-Ns/2 : Ns/2-1) / (Ns*Ts);
-    Pf = abs(fftshift(fft(x, Ns)) / Ns).^2;
+    Y_shifted = fftshift(fft(x, Ns)) / Ns;
+    Pf = abs(Y_shifted).^2;
 end
