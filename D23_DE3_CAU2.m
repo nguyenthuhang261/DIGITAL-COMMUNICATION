@@ -6,7 +6,7 @@ xb = 2;
 f = @(x) cos(x) * exp(-x);
 N = 50;
 
-res = mid_point(f, xa, xb, N)
+res = mid_point(f, xa, xb, N);
 fprintf("Gia tri cua tich phan la: %.6f \n", res);
 
 function res = mid_point(f, xa, xb, N)
