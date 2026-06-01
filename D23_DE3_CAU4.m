@@ -8,7 +8,7 @@ data = randi([0 1], n_bits, 1);
 
 M = 4;
 Nbs = log2(M);
-% data1 = bit2int(data, Nbs);
+% data1 = bit2int(data, Nbs, 'left-msb'); % wrong
 data1 = bit2int(data, Nbs, true);
 dk = qammod(data1, M, 'gray');
 
